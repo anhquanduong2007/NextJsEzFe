@@ -1,0 +1,12 @@
+## NextJs sử dụng cho FE hay BE?
+- NextJs cơ bản được host trên NodeJs server --> Làm Backend được --> nhưng KHÔNG NÊN
+- Nên tách biệt FE và BE
+  + Coding styles/ convention khác nhau
+  + Big codebase/ complex work flow for git/ github
+  + Not optimized for horizontal scale
+  + Bonus, real world cases, most of the time, we keep FE and BE repo separated
+* Code sẽ có phần chạy trên server, có phần chạy trên client
+=> nên có thể thấy những đoạn code tương tự như thế này để check client/ server:
+if(typeof window !== "undefined"){
+  // do something on clinet side
+}
