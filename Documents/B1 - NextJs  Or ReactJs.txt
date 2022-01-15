@@ -1,0 +1,9 @@
+## Nextjs là gì? 
+- Là 1 React Framework
+## Khi nào nên dùng NextJs hay ReactJs
+1. Type: RectJs - Library | NextJs - Framework
+2. Bootstrap: ReactJs - (create-react-app) | NextJs - (create-next-app)
+3. Rendering: ReactJs - CSR | NextJs - CSR,SSR and SSG
+4. Can be hosted on: ReactJs - Any kind of static server | Nextjs - NodeJs server
+5. Built-in SEO support: ReactJS - No | NextJs - Yes
+6. When to use: ReactJs - Internal/ Private web app, dashboard admin | NextJs - Marketing/ Landing pages/ Blog/ eCommerce
