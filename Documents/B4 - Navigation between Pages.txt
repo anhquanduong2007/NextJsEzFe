@@ -1,0 +1,25 @@
+## Navigation between Pages
+- Từ cái trang này mình link sang trang kia thì mình sẽ dùng 1 cái component tên là Link của 'next/link'
+-> Cái Link này sẽ giúp mình làm được cái truyện là client side transition tức là nó sẽ không làm full page reload
+mà nó sẽ chỉ fetch thêm thông tin và nó thực hiện chuyển đổi giữa các trang
+  + Một số props của Link cung cấp:
+     1. scroll: mặc định là true, ví dụ mình đang ở cái trang 1 mà hiện tại mình đang scroll xuống dưới thì chúng ta click vào 1 cái trang khác thì nó sẽ tự động scroll lên trên đầu
+     2. replace: mặc định là false, cái này sẽ nó sẽ replace Url hiện tại - cái history state hiện tại để khi chúng ta click sang một cái trang mới thì chúng ta sẽ không thể nào back về cái trang cũ được 
+     3. prefetch: mặc định là true (một chút nữa đọc ở dưới sẽ nói rõ hơn) cái này sẽ giúp mình prefetch cái thông tin của những cái trang mà mình sẽ đi tới, prefetch trước khi mà mình click zo là đi tới luôn
+     4. href: cái này là BẮT BUỘC phải có, nó là cái path or URL để điều hướng tới
+     5. passHref: đại loại là trong trường hợp mình muốn customize cái thẻ a thì dùng cái này để pass cái href xuống, nếu muốn dùng custom component thì làm theo hướng dẫn của trang chủ thôi: https://nextjs.org/docs/api-reference/next/link
+
+- Tại sao ở trong Link mình phải cần có cái thẻ a
++ Thứ 1 nhất dùng thẻ a ở trong Link thì không cần phải dùng passHref còn nếu dùng thẻ khác ở trong Link thì phải có nếu không nó sẽ có cảnh báo
++ THứ 2 là khi mình làm html ý nó lại liên quan đến cái vấn đề mặt ngữ nghĩa, khi mà liên kết trang này với trang khác thì dĩ nhiên mình phải dùng thẻ a rồi cho nên dùng thẻ a ở trong component Link nó sẽ đúng về mặt ngữ nghĩa và tốt cho SEO để nó biết được đây đúng là 1 cái liên kết
+
+- Trong trường hợp mình xử lý một cái gì đó mà muốn chuyển sang một trang khác thì chúng ta sẽ cần phải dùng đến next/router nó có một cái hook là useRouter cái cái hook này sẽ trả về cho mình một cái object router đọc thểm ở: https://nextjs.org/docs/api-reference/next/router
+
+- Quay lại chủ đề prefetch vậy prefetch tức là làm sao tức là ví dụ trên cái trang của mình ví dụ ở đây trang hiện tại mình có là trang home mình có 1 cái liên kết tới trang about như vậy để đảm bảo khi mà thằng user nó click vô cái link là nó đi tới trang about liền á thì nó sẽ làm một hành động gọi là prefetch, tức là sao tức là nó sẽ fetch những cái thông tin của cái trang about này, ví dụ như chẳng hạn cái trang about này có cái file là about.js thì nó sẽ fetch cái thông tin của trang about này về trc và nó fetch nó để đó thôi và khi chúng ta click vô cái link là nó có sẵn cái file about.js kia rồi thì nó thực thi thôi chứ nó không phải đi dowload còn nếu không có prefetch thì khi mình click vô cái link thì nó đi dowload cái file javascript about về sau đó nó mới thực thi, thì như vậy nó tốn cái thời gian dowload còn prefetch nó đã dowload sẵn rồi nó để đấy khi nào mình click vô cái link thì nó sẽ thực thi cái file đó luôn, nó không cần phải đợi cái thời gian đi dowload
+** Một vài lưu ý:
++ Trước khi mình sử dụng component Link là nó tự động bật cái prefetch rồi
++ Nó chỉ prefetch những cái links nào có trong viewport của mình thôi tức là cái trang của mình rất là dài thì tại một cái thời điểm mình chỉ có 1 cái khung nhìn của màn hình thôi thì cái khung mà người dùng nhìn thấy được thì nó gọi là viewport và nó sử dụng cái Intersection Observer API để detect cái element đó có nằm trong viewport hay không
++ Cái prefetch này chí được kích hoạt khi nó ở mode production mà thôi
++ Trong trường hợp mà mạng chậm ấy hoặc người dùng bật Save-Data thì nó cũng disable cái prefetch này luôn
+
+
