@@ -1,0 +1,36 @@
+## File-system Routing
+- When a file is added to the pages directory it's automatically available as a route
+- There are three kind of routes:
+  + Index routes: file named index
+  + Nested routes: nested folder in pages
+  + Dynamic routes: brackets in file name to match parameter dynamically (brackets: các dấu ngoặc ở đây là [])
+
+- Dynamic routes
+1. Single parameter -> pages/posts/[postId].tsx
+** Ví dụ: /posts/123 => thì chúng ta sẽ được => {postId: '123'} nhưng nếu viết là 
+/posts/developer-roadmap/something-else thì nó sẽ không match với cái ở trên là pages/posts/[postId].tsx vì nó sẽ chỉ match với đúng cái tầng của nó thôi
+2. Multiple parameters -> pages/categories/[categoryId]/posts/[postId].tsx
+** Ví dụ:
+pages
+|_ categories
+| |_ [categoryId] (folder)
+|   |_ posts
+|     |_ [postId].tsx (file)
+/categories/123/posts/456 => {categoryId: "123", postId: "456"}, cũng tương tự như cái Single parameter nó chỉ match một tầng thôi tức là nếu mình sược thêm một cái gì đó khác với cái mình khai báo thì nó sẽ không có match
+3. Catch all routes -> pages/posts/[...slug].tsx
+** Ví dụ: /posts/easy/frontend/nextjs => {slug: ['easy','fronted','nextjs']} với cái này thì bao nhiêu tầng con nó cũng match hết trơn luôn nhưng mà nó không match với thằng cha /posts mà để muốn nó match với thằng cha này thì dùng thằng ở dưới Optional catch all routes thì lúc này nó sẽ match luôn với thằng /posts
+4. Optional catch all routes -> pages/posts/[[...slug]].tsx
+
+- Router match order
++ Nếu như trong trường hợp mà chúng ta có cả Pre-defined routes: pages/posts/create.tsx và Dynamic routes: 
+pages/posts/[postId].tsx và Catch all routes: pages/posts[..slug].tsx thì nó sẽ bị dính cái độ ưu tiên xếp theo thứ tự là
+A - Pre-defined
+B - Dynamic routes
+C - Catch all routes
+** Ví dụ
+1. /posts/create -> A
+2. /posts/123456 -> B 
+3. /posts/developer-tips -> B
+4. /posts/frontend-road-map -> B
+5. /posts/123456/comments -> C
+6. /posts/123456/commnets/123 -> C
